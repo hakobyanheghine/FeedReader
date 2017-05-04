@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FeedReader</string>
+    <string name="welcome">RSS Feed Reader</string>
+</resources>
