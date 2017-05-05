@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.zeroapp.feedreader.R;
 import com.zeroapp.feedreader.data.RssFeedItemData;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by heghine on 3/27/17.
@@ -18,11 +18,11 @@ import java.util.ArrayList;
 
 public class RssFeedAdapter extends RecyclerView.Adapter<RssFeedAdapter.RssFeedAdapterViewHolder> {
 
-    private ArrayList<RssFeedItemData> rssFeedItems;
+    private List<RssFeedItemData> rssFeedItems;
 
     private final RssFeedItemOnClickHandler rssFeedItemOnClickHandler;
 
-    public RssFeedAdapter(ArrayList<RssFeedItemData> rssFeedItems, RssFeedItemOnClickHandler rssFeedItemOnClickHandler) {
+    public RssFeedAdapter(List<RssFeedItemData> rssFeedItems, RssFeedItemOnClickHandler rssFeedItemOnClickHandler) {
         this.rssFeedItems = rssFeedItems;
         this.rssFeedItemOnClickHandler = rssFeedItemOnClickHandler;
     }

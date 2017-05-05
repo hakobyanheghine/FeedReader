@@ -1,9 +1,6 @@
 package com.zeroapp.feedreader.data;
 
-import com.crazyhitty.chdev.ks.rssmanager.Channel;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by heghine on 5/3/17.

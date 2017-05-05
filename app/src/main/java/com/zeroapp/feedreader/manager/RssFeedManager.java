@@ -26,9 +26,16 @@ public class RssFeedManager {
     }
 
     /**
+     * number of rss feed items to load at a time
+     */
+    public static final int PAGE_SIZE = 10;
+
+    private int lastLoadedItemIndex;
+
+    /**
      * default url from where to load rss feed
      */
-    private static final String DEFAULT_URL = "http://www.feedforall.com/sample.xml";
+    private static final String DEFAULT_URL = "http://www.ag.ru/rss/ag.xml";
 
     /**
      * rss feed loading listener to transfer data to activity
@@ -38,7 +45,7 @@ public class RssFeedManager {
     /**
      * list of items that are shown
      */
-    public ArrayList<RssFeedItemData> rssFeedItemsToShow = new ArrayList<>();
+    public List<RssFeedItemData> rssFeedItemsToShow = new ArrayList<>();
 
     /**
      * the whole rss feed data
@@ -66,8 +73,8 @@ public class RssFeedManager {
             }
             rssFeedData.setItems(rssFeedItems);
 
-            // TODO replace this with real items to show
-            rssFeedItemsToShow = rssFeedItems;
+            // getting items to be shown
+            rssFeedItemsToShow = getNextPaginationItemsToShow();
 
             if (rssFeedLoadingListener != null) {
                 rssFeedLoadingListener.onFeedLoadSuccess();
@@ -83,6 +90,7 @@ public class RssFeedManager {
     };
 
     public void initialize() {
+        lastLoadedItemIndex = 0;
         NetworkService.init(rssCallback);
     }
 
@@ -91,8 +99,25 @@ public class RssFeedManager {
         NetworkService.getFeed(DEFAULT_URL);
     }
 
-    public void getRssFeedItemsToShow() {
-        rssFeedItemsToShow = rssFeedData.getItems();
+    /**
+     * calculates the rss feed items to be shown
+     * depending on the last loaded item date
+     * @return list of items to show
+     */
+    private List<RssFeedItemData> getNextPaginationItemsToShow() {
+        List<RssFeedItemData> itemsToShow;
+        List<RssFeedItemData> allItems = rssFeedData.getItems();
+
+        int lastIndex = allItems.size() - 1;
+        if (lastIndex > lastLoadedItemIndex + PAGE_SIZE) { // if there are still lastLoadedItemIndex + PAGE_SIZE items
+            itemsToShow = allItems.subList(lastLoadedItemIndex, lastLoadedItemIndex + PAGE_SIZE);
+            lastLoadedItemIndex += PAGE_SIZE;
+        } else { // otherwise we reached to the end
+            itemsToShow = allItems.subList(lastLoadedItemIndex, lastIndex);
+            lastLoadedItemIndex = lastIndex;
+        }
+
+        return itemsToShow;
     }
 
     public interface RssFeedLoadingListener {

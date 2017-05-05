@@ -43,6 +43,35 @@ public class RssFeedActivity extends AppCompatActivity {
         });
         rssFeedRecyclerView.setAdapter(rssFeedAdapter);
 
+        // TODO this part is for pagination, however there are some issues
+//        rssFeedRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//            }
+//
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//
+//                if (dy > 0) { //check for scroll down
+//                    int visibleItemCount = linearLayoutManager.getChildCount();
+//                    int totalItemCount = linearLayoutManager.getItemCount();
+//                    int pastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
+//
+//                    if (RssFeedManager.getInstance().loading) {
+//                        if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+//                            RssFeedManager.getInstance().loading = false;
+//                            int lastIndexBeforeInsert = RssFeedManager.getInstance().rssFeedItemsToShow.size() - 1;
+//                            RssFeedManager.getInstance().rssFeedItemsToShow.addAll(RssFeedManager.getInstance().getNextPaginationItemsToShow());
+//                            int lastIndexAfterInsert = RssFeedManager.getInstance().rssFeedItemsToShow.size() - 1;
+//                            rssFeedAdapter.notifyItemRangeInserted(lastIndexBeforeInsert, lastIndexAfterInsert);
+//                        }
+//                    }
+//                }
+//            }
+//        });
+
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl_rss_feed);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
