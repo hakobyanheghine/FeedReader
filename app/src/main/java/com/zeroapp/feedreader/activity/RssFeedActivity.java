@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.zeroapp.feedreader.R;
 import com.zeroapp.feedreader.data.RssFeedItemData;
@@ -86,9 +87,18 @@ public class RssFeedActivity extends AppCompatActivity {
 
                     @Override
                     public void onFeedLoadFailure() {
-
+                        showToast(getString(R.string.error_no_network));
                     }
                 });
+            }
+        });
+    }
+
+    private void showToast(final String message) {
+        RssFeedActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(RssFeedActivity.this, message, Toast.LENGTH_LONG).show();
             }
         });
     }

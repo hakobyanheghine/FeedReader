@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Rss Feed</string>
     <string name="welcome">RSS Feed Reader</string>
+    <string name="error_no_network">Please, check you Internet connection</string>
 </resources>

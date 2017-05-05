@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.zeroapp.feedreader.activity.RssFeedActivity;
 import com.zeroapp.feedreader.manager.RssFeedManager;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFeedLoadFailure() {
                 // show message to user about the failure
+                progressBar.setVisibility(View.GONE);
+                showToast(getString(R.string.error_no_network));
             }
         });
     }
@@ -39,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Intent rssFeedActivity = new Intent(MainActivity.this, RssFeedActivity.class);
                 startActivity(rssFeedActivity);
+            }
+        });
+    }
+
+    private void showToast(final String message) {
+        MainActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
             }
         });
     }
